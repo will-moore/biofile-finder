@@ -92,10 +92,15 @@ export default class DatabaseFileService implements FileService {
         return parseInt(rows[0][select_key], 10);
     }
 
+    bc = new BroadcastChannel("bff.file_selection");
+
     public async getAggregateInformation(
         fileSelection: FileSelection
     ): Promise<SelectionAggregationResult> {
         const allFiles = await fileSelection.fetchAllDetails();
+        const fileData = allFiles.map((file) => file.details.annotations);
+        this.bc.postMessage({ type: "selection", data: fileData });
+        console.log("FileService/DatabaseFileService: getAggregateInformation", { allFiles });
         const count = fileSelection.count();
         if (allFiles.length && allFiles[0].size === undefined) {
             return { count };
