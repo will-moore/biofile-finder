@@ -50,7 +50,7 @@ const router = createBrowserRouter(
         },
     ],
     {
-        basename: "",
+        basename: "/biofile-finder",
     }
 );
 
