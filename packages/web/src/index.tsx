@@ -31,7 +31,7 @@ const router = createBrowserRouter(
             element: <Layout />,
             children: [
                 {
-                    path: "home",
+                    path: "/",
                     element: <Home />, // Splash page
                 },
                 {
@@ -39,7 +39,7 @@ const router = createBrowserRouter(
                     element: <Learn />,
                 },
                 {
-                    path: "/", // make the APP the home page
+                    path: "app",
                     element: <FmsFileExplorer className={styles.app} />,
                 },
                 {
