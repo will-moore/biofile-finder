@@ -16,7 +16,7 @@ jobs:
           npm install
           npm --prefix packages/web run build
           mkdir packages/web/dist/app
-          cp packages/web/dist/* packages/web/dist/app
+          rsync -av --exclude='app/' packages/web/dist/ packages/web/dist/app/
 
           touch packages/web/dist/.nojekyll
       - name: Deploy 🚀
