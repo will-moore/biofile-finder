@@ -50,7 +50,8 @@ const router = createBrowserRouter(
         },
     ],
     {
-        basename: "",
+        // If we're hosted in a GitHub Pages site, we need to set the basename to the repo name
+        basename: process.env.GITHUB_REPOSITORY_OWNER ? "/biofile-finder" : "",
     }
 );
 

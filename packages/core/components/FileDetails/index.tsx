@@ -13,7 +13,7 @@ import { ROOT_ELEMENT_ID } from "../../App";
 import FileThumbnail from "../../components/FileThumbnail";
 import AnnotationName from "../../entity/Annotation/AnnotationName";
 import annotationFormatterFactory, { AnnotationType } from "../../entity/AnnotationFormatter";
-import useOpenWithMenuItems from "../../hooks/useOpenWithMenuItems";
+// import useOpenWithMenuItems from "../../hooks/useOpenWithMenuItems";
 import { MAX_DOWNLOAD_SIZE_WEB } from "../../services/FileDownloadService";
 import { interaction } from "../../state";
 
@@ -115,8 +115,11 @@ export default function FileDetails(props: Props) {
                         .canUseDirectoryArguments(fileDetails.path)
                         .then((canUse) => {
                             if (!canUse) return;
-                            const { hostname, bucket, key } =
-                                fileDownloadService.parseVirtualizedUrl(fileDetails.path);
+                            const {
+                                hostname,
+                                bucket,
+                                key,
+                            } = fileDownloadService.parseVirtualizedUrl(fileDetails.path);
                             fileDownloadService
                                 .calculateS3DirectorySize(hostname, key, bucket)
                                 .then(setCalculatedSize);
@@ -127,7 +130,7 @@ export default function FileDetails(props: Props) {
     }, [fileDetails, fileDownloadService, isOnWeb, isZarr]);
 
     const processStatuses = useSelector(interaction.selectors.getProcessStatuses);
-    const openWithMenuItems = useOpenWithMenuItems(fileDetails || undefined);
+    // const openWithMenuItems = useOpenWithMenuItems(fileDetails || undefined);
 
     // Disable download of large Zarrs ( > 2GB).
     const isDownloadDisabled = fileDetails
@@ -217,15 +220,14 @@ export default function FileDetails(props: Props) {
                                     <Tooltip content={downloadDisabledMessage}>
                                         <PrimaryButton
                                             className={styles.primaryButton}
-                                            disabled={isDownloadDisabled}
-                                            iconName="Download"
-                                            text="Download"
-                                            title="Download file to local system"
+                                            iconName="OpenInNewWindow"
+                                            text="Open Image in IDR"
+                                            title="Open Image viewer in IDR"
                                             onClick={onDownload}
                                         />
                                     </Tooltip>
                                 </StackItem>
-                                <StackItem>
+                                {/* <StackItem>
                                     <PrimaryButton
                                         className={styles.primaryButton}
                                         iconName="OpenInNewWindow"
@@ -233,7 +235,7 @@ export default function FileDetails(props: Props) {
                                         title="Open file by selected method"
                                         menuItems={openWithMenuItems}
                                     />
-                                </StackItem>
+                                </StackItem> */}
                             </Stack>
                             <p className={styles.fileName}>{fileDetails?.name}</p>
                             <h4>Information</h4>
